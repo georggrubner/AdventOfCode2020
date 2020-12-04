@@ -43,7 +43,6 @@ public class Dec04 implements Calculation {
                 }
             }
         }
-        System.out.println(map.size());
         if (map.size() == 7) {
             count++;
         }
