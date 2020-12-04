@@ -2,7 +2,7 @@ package main;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class utils {
 

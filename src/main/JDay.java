@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class JDay extends javax.swing.JPanel {
 

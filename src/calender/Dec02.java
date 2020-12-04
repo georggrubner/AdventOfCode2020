@@ -6,7 +6,7 @@ import main.Calculation;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class Dec02 implements Calculation {
 

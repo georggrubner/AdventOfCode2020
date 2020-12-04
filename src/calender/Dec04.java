@@ -8,7 +8,7 @@ import main.Calculation;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class Dec04 implements Calculation {
 

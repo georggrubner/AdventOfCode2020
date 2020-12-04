@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class Main extends javax.swing.JFrame {
 

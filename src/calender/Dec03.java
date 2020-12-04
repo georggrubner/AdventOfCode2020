@@ -9,7 +9,7 @@ import main.Calculation;
 
 /**
  *
- * @author grubn
+ * @author georggrubner
  */
 public class Dec03 implements Calculation {
 
