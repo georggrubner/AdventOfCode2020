@@ -44,12 +44,7 @@ public class Dec05 implements Calculation {
     }
 
     int fromBinaryToInt(String input) {
-        char[] chars = input.toCharArray();
-        String output = "";
-        for (int i = 0; i < chars.length; i++) {
-            output = output.concat(chars[i] == 'B' || chars[i] == 'R' ? "1" : "0");
-        }
-        return Integer.parseInt(output, 2);
+        return Integer.parseInt(input.replace('B', '1').replace('R', '1').replace('F', '0').replace('L', '0'), 2);
     }
 
     private Set<Integer> getSeatsSet(String inputFileName) throws IOException {
