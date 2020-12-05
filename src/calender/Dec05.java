@@ -53,10 +53,7 @@ public class Dec05 implements Calculation {
         Set<Integer> seats = new TreeSet<>();
 
         while ((st = br.readLine()) != null) {
-            int row = fromBinaryToInt(st.substring(0, 7));
-            int column = fromBinaryToInt(st.substring(7));
-            int seatId = row * 8 + column;
-            seats.add(seatId);
+            seats.add(fromBinaryToInt(st));
         }
 
         return seats;
