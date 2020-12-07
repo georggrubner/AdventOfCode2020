@@ -20,16 +20,12 @@ public class Dec07 implements Calculation {
     @Override
     public String calculateStar1(String inputFileName) throws Exception {
         initializeBagMap(inputFileName);
-        int count = 0;
 
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            List<String> value = entry.getValue();
-            if (containsBag("shiny gold", value)) {
-                count++;
-            }
-        }
-
-        return "" + count;
+        return "" + map.entrySet()
+                .stream()
+                .map((entry) -> entry.getValue())
+                .filter((value) -> (containsBag("shiny gold", value)))
+                .count();
     }
 
     @Override
@@ -72,7 +68,7 @@ public class Dec07 implements Calculation {
         }
         return count;
     }
-    
+
     static void initializeBagMap(String inputFileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(inputFileName));
         String st;
