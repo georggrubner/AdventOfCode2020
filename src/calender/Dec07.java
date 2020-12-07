@@ -15,7 +15,7 @@ import main.Calculation;
  */
 public class Dec07 implements Calculation {
 
-    private static Map<String, List<String>> map;
+    private static Map<String, List<Bag>> map;
 
     @Override
     public String calculateStar1(String inputFileName) throws Exception {
@@ -35,20 +35,17 @@ public class Dec07 implements Calculation {
         return "" + countBags(map.get("shiny gold"));
     }
 
-    static boolean containsBag(String bag, List<String> lst) {
+    static boolean containsBag(String bag, List<Bag> lst) {
         if (lst.isEmpty()) {
             return false;
         }
         for (int i = 0; i < lst.size(); i++) {
-            if (lst.get(i).contains(bag)) {
+            if (lst.get(i).name.contains(bag)) {
                 return true;
             }
         }
         for (int i = 0; i < lst.size(); i++) {
-            String bagToSearch = lst.get(i);
-            int index = bagToSearch.indexOf(" ");
-            bagToSearch = bagToSearch.substring(index + 1);
-            boolean contains = containsBag(bag, map.get(bagToSearch));
+            boolean contains = containsBag(bag, map.get(lst.get(i).name));
             if (contains) {
                 return true;
             }
@@ -57,14 +54,11 @@ public class Dec07 implements Calculation {
         return false;
     }
 
-    static int countBags(List<String> lst) {
+    static int countBags(List<Bag> lst) {
         int count = 0;
         for (int i = 0; i < lst.size(); i++) {
-            String bagToSearch = lst.get(i);
-            int index = bagToSearch.indexOf(" ");
-            int amount = Integer.parseInt(bagToSearch.substring(0, index));
-            bagToSearch = bagToSearch.substring(index + 1);
-            count += amount * (1 + countBags(map.get(bagToSearch)));
+            Bag bag = lst.get(i);
+            count += bag.amount * (1 + countBags(map.get(bag.name)));
         }
         return count;
     }
@@ -77,7 +71,7 @@ public class Dec07 implements Calculation {
         while ((st = br.readLine()) != null) {
             String[] s = st.split("\\b bags contain \\b");
             String key = s[0];
-            List<String> lst = new ArrayList<>();
+            List<Bag> lst = new ArrayList<>();
             String[] values = s[1].split(",");
             for (int i = 0; i < values.length; i++) {
                 String value = values[i];
@@ -89,10 +83,26 @@ public class Dec07 implements Calculation {
                 }
                 value = value.substring(0, value.length() - 4).trim();
                 if (!value.equals("no other")) {
-                    lst.add(value);
+                    int index = value.indexOf(" ");
+                    int amount = Integer.parseInt(value.substring(0, index));
+                    value = value.substring(index + 1);
+
+                    lst.add(new Bag(amount, value));
                 }
             }
             map.put(key, lst);
         }
     }
+}
+
+class Bag {
+
+    int amount;
+    String name;
+
+    public Bag(int amount, String name) {
+        this.amount = amount;
+        this.name = name;
+    }
+
 }
