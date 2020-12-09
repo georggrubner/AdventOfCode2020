@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.LongStream;
 import main.Calculation;
 
 /**
@@ -46,12 +47,12 @@ public class Dec09 implements Calculation {
                 }
             }
             if (!valid) {
-                System.out.println("" + data.get(i));
                 for (int j = 0; j < i; j++) {
                     for (int k = j + 1; k < i; k++) {
-                        long value = data.subList(j, k).stream().mapToLong((v) -> v).sum();
+                        List<Long> lst = data.subList(j, k);
+                        long value = stream(lst).sum();
                         if (value == data.get(i)) {
-                            long result = data.subList(j, k).stream().mapToLong((v) -> v).min().getAsLong() + data.subList(j, k).stream().mapToLong((v) -> v).max().getAsLong();
+                            long result = stream(lst).min().getAsLong() + stream(lst).max().getAsLong();
                             return "" + result;
                         }
                     }
@@ -72,5 +73,9 @@ public class Dec09 implements Calculation {
         }
 
         return data;
+    }
+
+    private LongStream stream(List<Long> lst) {
+        return lst.stream().mapToLong((v) -> v);
     }
 }
