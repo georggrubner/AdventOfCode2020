@@ -14,10 +14,8 @@ public class Dec11 implements Calculation {
     @Override
     public String calculateStar1(String inputFileName) throws Exception {
         char[][] seats = getSeatsArray(inputFileName);
-
         char[][] newSeats = duplicate(seats);
-
-        boolean changed = false;
+        boolean changed;
 
         do {
             changed = false;
@@ -59,26 +57,14 @@ public class Dec11 implements Calculation {
             seats = duplicate(newSeats);
         } while (changed);
 
-        int count = 0;
-
-        for (int i = 0; i < seats.length; i++) {
-            for (int j = 0; j < seats[0].length; j++) {
-                if (seats[i][j] == '#') {
-                    count++;
-                }
-            }
-        }
-
-        return "" + count;
+        return "" + countOccupiedSeats(seats);
     }
 
     @Override
     public String calculateStar2(String inputFileName) throws Exception {
         char[][] seats = getSeatsArray(inputFileName);
-
         char[][] newSeats = duplicate(seats);
-
-        boolean changed = false;
+        boolean changed;
 
         do {
             changed = false;
@@ -120,17 +106,7 @@ public class Dec11 implements Calculation {
             seats = duplicate(newSeats);
         } while (changed);
 
-        int count = 0;
-
-        for (int i = 0; i < seats.length; i++) {
-            for (int j = 0; j < seats[0].length; j++) {
-                if (seats[i][j] == '#') {
-                    count++;
-                }
-            }
-        }
-
-        return "" + count;
+        return "" + countOccupiedSeats(seats);
     }
 
     private char[][] getSeatsArray(String inputFileName) throws IOException {
@@ -151,9 +127,7 @@ public class Dec11 implements Calculation {
 
         while ((st = br.readLine()) != null) {
             char[] chars = st.toCharArray();
-            for (int j = 0; j < chars.length; j++) {
-                seats[i][j] = chars[j];
-            }
+            System.arraycopy(chars, 0, seats[i], 0, chars.length);
             i++;
         }
 
@@ -163,9 +137,7 @@ public class Dec11 implements Calculation {
     private char[][] duplicate(char[][] seats) {
         char[][] newSeats = new char[seats.length][seats[0].length];
         for (int i = 0; i < seats.length; i++) {
-            for (int j = 0; j < seats[0].length; j++) {
-                newSeats[i][j] = seats[i][j];
-            }
+            System.arraycopy(seats[i], 0, newSeats[i], 0, seats[0].length);
         }
         return newSeats;
     }
@@ -188,7 +160,7 @@ public class Dec11 implements Calculation {
     private boolean checkIfEmptySee(char[][] seats, int i, int j, int deltaI, int deltaJ) {
         int posI = i + deltaI;
         int posJ = j + deltaJ;
-        
+
         while (isValidCoordinates(seats, posI, posJ)) {
             switch (seats[posI][posJ]) {
                 case '.':
@@ -225,5 +197,19 @@ public class Dec11 implements Calculation {
             }
         }
         return false;
+    }
+
+    private int countOccupiedSeats(char[][] seats) {
+        int count = 0;
+
+        for (char[] row : seats) {
+            for (char seat : row) {
+                if (seat == '#') {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 }
